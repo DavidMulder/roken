@@ -2,7 +2,7 @@
 
 #include $(top_srcdir)/Makefile.am.common
 
-ACLOCAL_AMFLAGS = -I ../../cf
+ACLOCAL_AMFLAGS = -I ../cf
 
 CLEANFILES = roken.h make-roken.c $(XHEADERS)
 
@@ -15,7 +15,7 @@ if versionscript
 libroken_la_LDFLAGS += $(LDFLAGS_VERSION_SCRIPT)$(srcdir)/version-script.map
 endif
 
-AM_CPPFLAGS += $(libroken_la_CPPFLAGS)
+AM_CPPFLAGS = $(libroken_la_CPPFLAGS)
 if HAVE_DBHEADER
 AM_CPPFLAGS += -I$(DBHEADER)
 endif

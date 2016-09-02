@@ -2,7 +2,14 @@ AC_PREREQ(2.62)
 AC_INIT([roken], 1.0)
 AC_CONFIG_MACRO_DIR([cf])
 
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([foreign 1.11])
+
+LT_PREREQ([2.2])
+LT_INIT
+
 AC_PROG_CC
+
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+
 AC_CONFIG_FILES(Makefile src/Makefile)
 AC_OUTPUT
