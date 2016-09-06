@@ -41,7 +41,6 @@ check_PROGRAMS = 				\
 TESTS = $(check_PROGRAMS)
 
 LDADD = libroken.la
-make_roken_LDADD = 
 
 noinst_LTLIBRARIES = libtest.la
 libtest_la_SOURCES = strftime.c strptime.c snprintf.c tsearch.c
@@ -210,34 +209,14 @@ nodist_rokeninclude_HEADERS = $(XHEADERS)
 
 man_MANS = getarg.3 parse_time.3 rtbl.3 ecalloc.3
 
-SUFFIXES += .hin
+SUFFIXES = .hin
 .hin.h:
 	cp $< $@
-
-# Make make-roken deprecated in 1.4 when we know that roken-h-process.pl works
-if !CROSS_COMPILE
-
-noinst_PROGRAMS += make-roken
-BUILT_SOURCES += make-roken.c
-
-nodist_make_roken_SOURCES = make-roken.c
-
-roken.h: make-roken$(EXEEXT)
-	@./make-roken$(EXEEXT) > tmp.h ;\
-	if [ -f roken.h ] && cmp -s tmp.h roken.h ; then rm -f tmp.h ; \
-	else rm -f roken.h; mv tmp.h roken.h; fi
-
-make-roken.c: roken.h.in roken.awk
-	$(AWK) -f $(srcdir)/roken.awk $(srcdir)/roken.h.in > make-roken.c
-
-else
 
 roken.h: $(top_srcdir)/cf/roken-h-process.pl roken.h.in
 	perl $(top_srcdir)/cf/roken-h-process.pl \
 	-c $(top_builddir)/include/config.h  \
 	-p $(srcdir)/roken.h.in -o roken.h
-
-endif
 
 
 EXTRA_DIST = \
